@@ -1,0 +1,55 @@
+Title: Analysis and Design
+Name: MUHEMMED YUSUF ALI SHABAN
+Date: Tuesday, 11/17/2026
+Project 2: Fleet Management
+
+Object Oriented Design Process
+
+Analysis
+  Domain
+    - Creates two main classes: Boat and FleetManagement (driver).
+    - The fleet owns multiple boats, and the Commodore tracks maintenance spending based on purchase prices.
+  Function points
+    - The Commodore (actor) inputs menu commands to print, add, remove, or expense a boat.
+    - The system loads data from a CSV on the first run, and loads/saves from a DB file on subsequent runs.
+    - The system calculates if an expense request is allowed based on the boat's purchase price.
+  Scenarios
+    - System starts: checks for command line args. If CSV is present, load CSV. Else, load DB.
+    - Commodore selects 'Add': inputs a comma-separated string, system parses it into a new Boat.
+    - Commodore selects 'Expense': system finds boat, compares requested expense + current expense against purchase price. Rejects if total exceeds purchase price.
+    - Commodore selects 'Exit': system serializes the fleet to a .db file and terminates.
+
+Design
+  Classes and objects
+    - Boat (Domain entity)
+    - FleetManagement (Driver/System object containing the fleet)
+  Data of objects and classes
+    Data of Boat class:
+      - type of enum BoatType (SAILING, POWER)
+      - name of type String
+      - year of type int
+      - makeModel of type String
+      - length of type int
+      - purchasePrice of type double
+      - expenses of type double
+    Data of FleetManagement class:
+      - fleet of type ArrayList<Boat> (shared)
+      - keyboard of type Scanner (shared)
+      - DB_FILENAME of type String (final constant)
+  Methods of objects and classes
+    Method of Boat class:
+      - Constructor with raw CSV string parameter
+      - spendMoney(double amount) of type boolean
+      - getName() of type String
+      - getPurchasePrice() of type double
+      - getExpenses() of type double
+      - toString() of type String
+    Method of FleetManagement class:
+      - main
+      - loadFromCSV(String filename)
+      - loadFromDB()
+      - saveToDB()
+      - printFleet()
+      - addBoat()
+      - removeBoat()
+      - expenseBoat()
